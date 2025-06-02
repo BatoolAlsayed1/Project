@@ -39,7 +39,7 @@ export class SigninComponent {
         },
         error: (err) => {
           console.error('Signin failed:', err);
-          this.errorMessage = 'Invalid email or password'; // Show message to user
+          this.errorMessage = 'Invalid email or password'; 
         }
       });
     }
