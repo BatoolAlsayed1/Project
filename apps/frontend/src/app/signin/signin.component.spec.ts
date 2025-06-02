@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SigninComponent } from './signin.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { provideStore } from '@ngrx/store';
+import { authReducer } from '../state/auth.reducer';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SigninComponent', () => {
   let component: SigninComponent;
@@ -12,10 +13,12 @@ describe('SigninComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         SigninComponent,
+        HttpClientTestingModule,
         RouterTestingModule,
-        ReactiveFormsModule,
-        HttpClientTestingModule
-      ]
+      ],
+      providers: [
+        provideStore({ auth: authReducer }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SigninComponent);

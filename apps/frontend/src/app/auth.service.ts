@@ -1,32 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as AuthActions from './state/auth.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api/auth';
+  constructor(private http: HttpClient, private store: Store) {}
 
-  constructor(private http: HttpClient) {}
-
-  signup(data: { name: string; email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/signup`, data);
+  signup(data: { name: string; email: string; password: string }) {
+    return this.http.post('http://localhost:3000/api/auth/signup', data);
   }
 
-  signin(data: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/signin`, data);
+  signin(data: { email: string; password: string }) {
+    return this.http.post<{ access_token: string }>(
+      'http://localhost:3000/api/auth/signin',
+      data
+    );
   }
 
-  saveToken(token: string): void {
+  saveToken(token: string, email: string) {
     localStorage.setItem('token', token);
+    this.store.dispatch(AuthActions.login({ token, email }));
+  }
+  clearToken() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('email');
   }
 
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
-
-  clearToken(): void {
+  logout() {
     localStorage.removeItem('token');
+    this.store.dispatch(AuthActions.logout());
   }
 }

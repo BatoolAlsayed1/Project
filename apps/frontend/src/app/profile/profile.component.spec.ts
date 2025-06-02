@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProfileComponent } from './profile.component';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideStore } from '@ngrx/store';
+import { authReducer } from '../state/auth.reducer';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -11,9 +13,12 @@ describe('ProfileComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         ProfileComponent,
+        HttpClientTestingModule,
         RouterTestingModule,
-        HttpClientTestingModule
-      ]
+      ],
+      providers: [
+        provideStore({ auth: authReducer }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProfileComponent);
@@ -25,3 +30,4 @@ describe('ProfileComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

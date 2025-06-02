@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideStore } from '@ngrx/store';
+import { authReducer } from './state/auth.reducer';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -8,7 +9,10 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, RouterTestingModule]
+      imports: [AppComponent],
+      providers: [
+        provideStore({ auth: authReducer }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
