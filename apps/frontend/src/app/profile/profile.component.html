@@ -1,0 +1,13 @@
+ <main class="profile-main">
+    <div *ngIf="user; else loading">
+      <p ><strong>Email:</strong> {{ user.email }}</p>
+    </div>
+    <div>
+      <button class="btn" (click)="signout()">Sign Out</button>
+    </div>
+
+    <ng-template #loading>
+      <p>Loading profile...</p>
+    </ng-template>
+  </main>
+

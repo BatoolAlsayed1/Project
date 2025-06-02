@@ -1,13 +1,24 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+
 
 @Component({
-  imports: [NxWelcomeComponent, RouterModule],
   selector: 'app-root',
+  standalone: true,
+   imports: [RouterModule], 
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'frontend';
+  constructor(private router: Router) {}
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  signout(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/signin']);
+  }
 }
