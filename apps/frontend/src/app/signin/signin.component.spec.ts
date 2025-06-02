@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SigninComponent } from './signin.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('SigninComponent', () => {
   let component: SigninComponent;
@@ -8,9 +8,11 @@ describe('SigninComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SigninComponent]
-    })
-    .compileComponents();
+      imports: [
+        SigninComponent,
+        ReactiveFormsModule, 
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SigninComponent);
     component = fixture.componentInstance;
@@ -21,3 +23,4 @@ describe('SigninComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
