@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./app.component.css'],
   imports: [
     RouterModule,
-    HttpClientModule,  // ✅ FIX for HttpClient!
+    HttpClientModule,  
   ],
 })
 export class AppComponent {
@@ -29,12 +29,7 @@ export class AppComponent {
   }
 
   signout(): void {
-    // You can clear token from localStorage if using localStorage:
     localStorage.removeItem('token');
-
-    // OR if you add clearToken action later:
-    // this.store.dispatch(AuthActions.clearToken());
-
     this.router.navigate(['/signin']);
   }
 }
