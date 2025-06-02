@@ -40,7 +40,7 @@ export class AuthService {
   const payload = { id: user._id, email: user.email };
   const token = this.jwtService.sign(payload);
 
-  return { access_token: token }; // <-- IS THIS EXACTLY LIKE THIS?
+  return { access_token: token }; 
 }
 
 }

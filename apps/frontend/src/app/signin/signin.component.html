@@ -3,33 +3,32 @@
     <div class="container">
       <div class="box form-box">
         <header>Sign In</header>
+        <form id= "form"[formGroup]="signinForm" (ngSubmit)="onSubmit()">
+          <div class ="field input">
+            <label>Email</label>
+            <input type="email" formControlName="email" required/>
+            <small *ngIf="signinForm.get('email')?.errors?.['required']">Email is required.</small>
+            <small *ngIf="signinForm.get('email')?.errors?.['email']">Invalid email format.</small>
+          </div>
 
-    <form id= "form"[formGroup]="signinForm" (ngSubmit)="onSubmit()">
-      <div class ="field input">
-        <label>Email</label>
-        <input type="email" formControlName="email" required/>
-        <small *ngIf="signinForm.get('email')?.errors?.['required']">Email is required.</small>
-       <small *ngIf="signinForm.get('email')?.errors?.['email']">Invalid email format.</small>
-      </div>
+          <div class ="field input">
+            <label>Password</label>
+            <input type="password" formControlName="password" />
+            <small *ngIf="signinForm.get('password')?.errors?.['required']">Password is required.</small>
+          </div>
 
-      <div class ="field input">
-        <label>Password</label>
-        <input type="password" formControlName="password" />
-        <small *ngIf="signinForm.get('password')?.errors?.['required']">Password is required.</small>
-      </div>
-      <div *ngIf="errorMessage">
-        <small style="color:red;">{{ errorMessage }}</small>
-      </div>
+          <div *ngIf="errorMessage">
+            <small style="color:red;">{{ errorMessage }}</small>
+          </div>
 
-      <div class ="field">
-      <button type="submit" class="btn" [disabled]="signinForm.invalid">Sign In</button>
-    </div>
-    
-
-      <div class="links">
-       Don't have an account? <a routerLink="/signup">Sign Up</a>
-      </div>
-    </form>
+          <div class ="field">
+            <button type="submit" class="btn" [disabled]="signinForm.invalid">Sign In</button>
+          </div>
+        
+          <div class="links">
+            Don't have an account? <a routerLink="/signup">Sign Up</a>
+          </div>
+        </form>
       </div>
     </div>
   </body>

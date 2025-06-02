@@ -3,38 +3,37 @@
     <div class="container">
       <div class="box form-box">
         <header>Sign Up</header>
+          <form id= "form"[formGroup]="signupForm" (ngSubmit)="onSubmit()">
+            <div class ="field input">
+              <label>Name</label>
+              <input type="text" formControlName="name" required/>
+              <small *ngIf="signupForm.get('email')?.errors?.['required']">Name is required.</small>
+            </div>
 
-    <form id= "form"[formGroup]="signupForm" (ngSubmit)="onSubmit()">
-      <div class ="field input">
-        <label>Name</label>
-        <input type="text" formControlName="name" required/>
-        <small *ngIf="signupForm.get('email')?.errors?.['required']">Name is required.</small>
+            <div class ="field input">
+              <label>Email</label>
+              <input type="email" formControlName="email" required/>
+              <small *ngIf="signupForm.get('email')?.errors?.['required']">Email is required.</small>
+              <small *ngIf="signupForm.get('email')?.errors?.['email']">Invalid email format.</small>
+            </div>
 
-      </div>
+            <div class ="field input">
+              <label>Password</label>
+              <input type="password" formControlName="password" required/>
+              <small *ngIf="signupForm.get('password')?.errors?.['required']">Password is required.</small>
+              <small *ngIf="signupForm.get('password')?.errors?.['minlength']">
+                Password must be at least {{ signupForm.get('password')?.errors?.['minlength'].requiredLength }} characters (currently {{ signupForm.get('password')?.errors?.['minlength'].actualLength }}).      
+              </small>
+            </div>
 
-      <div class ="field input">
-        <label>Email</label>
-        <input type="email" formControlName="email" required/>
-        <small *ngIf="signupForm.get('email')?.errors?.['required']">Email is required.</small>
-       <small *ngIf="signupForm.get('email')?.errors?.['email']">Invalid email format.</small>
-      </div>
+            <div class ="field">
+              <button type="submit" class="btn" [disabled]="signupForm.invalid">Sign Up</button>
+            </div>
 
-      <div class ="field input">
-        <label>Password</label>
-        <input type="password" formControlName="password" required/>
-         <small *ngIf="signupForm.get('password')?.errors?.['required']">Password is required.</small>
-         <small *ngIf="signupForm.get('password')?.errors?.['minlength']">
-           Password must be at least {{ signupForm.get('password')?.errors?.['minlength'].requiredLength }} characters (currently {{ signupForm.get('password')?.errors?.['minlength'].actualLength }}).      
-          </small>
-  </div>
-      <div class ="field">
-      <button type="submit" class="btn" [disabled]="signupForm.invalid">Sign Up</button>
-    </div>
-
-      <div class="links">
-        Already have an account? <a routerLink="/signin">Sign in</a>
-      </div>
-    </form>
+            <div class="links">
+              Already have an account? <a routerLink="/signin">Sign in</a>
+            </div>
+          </form>
       </div>
     </div>
   </body>
