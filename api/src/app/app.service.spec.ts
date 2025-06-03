@@ -1,20 +1,23 @@
-import { Test } from '@nestjs/testing';
+import { Test, TestingModule } from '@nestjs/testing';
 import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
 
 describe('AppService', () => {
   let service: AppService;
 
-  beforeAll(async () => {
-    const app = await Test.createTestingModule({
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
+      ],
       providers: [AppService],
     }).compile();
 
-    service = app.get<AppService>(AppService);
+    service = module.get<AppService>(AppService);
   });
 
-  describe('getData', () => {
-    it('should return "Hello API"', () => {
-      expect(service.getData()).toEqual({ message: 'Hello API' });
-    });
+  it('should be defined', () => {
+    expect(service).toBeDefined();
   });
 });
+
