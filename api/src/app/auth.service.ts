@@ -27,20 +27,19 @@ export class AuthService {
         return await newUser.save();
     }
     async signin(data: { email: string; password: string }) {
-  const user = await this.userModel.findOne({ email: data.email });
-  if (!user) {
-    throw new UnauthorizedException('Invalid credentials');
-  }
+      const user = await this.userModel.findOne({ email: data.email });
+      if (!user) {
+        throw new UnauthorizedException('Invalid credentials');
+      }
 
-  const isPasswordValid = await bcrypt.compare(data.password, user.password);
-  if (!isPasswordValid) {
-    throw new UnauthorizedException('Invalid credentials');
-  }
+      const isPasswordValid = await bcrypt.compare(data.password, user.password);
+      if (!isPasswordValid) {
+        throw new UnauthorizedException('Invalid credentials');
+      }
 
-  const payload = { id: user._id, email: user.email };
-  const token = this.jwtService.sign(payload);
+      const payload = { id: user._id, email: user.email };
+      const token = this.jwtService.sign(payload);
 
-  return { access_token: token }; 
-}
-
+      return { access_token: token }; 
+    }
 }

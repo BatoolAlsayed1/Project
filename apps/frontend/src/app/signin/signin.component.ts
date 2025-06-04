@@ -34,7 +34,7 @@ export class SigninComponent {
       this.authService.signin(this.signinForm.value).subscribe({
         next: (res) => {
           console.log('Signin success:', res);
-          this.authService.saveToken(res.access_token, this.signinForm.value.email);
+          this.authService.saveToken(res.access_token);
           this.router.navigate(['/profile']);
         },
         error: (err) => {
